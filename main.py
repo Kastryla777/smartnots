@@ -109,11 +109,36 @@ def del_tag():
             ui.tags_list.clear()
             ui.tags_list.addItems(note["теги"])
 
-
-
-
-
 ui.del_tag.clicked.connect(del_tag)
+
+
+def search_tag():
+    if ui.search_btn.text() == "шукати нотатки по тегу":
+
+        tag =ui.tag_input.text()
+
+        filterad_notes = []
+        for note_name, note in NOTES.items():
+            if tag in note["теги"]:
+                filterad_notes.append(note_name)
+
+        ui.notes_list.clear()
+        ui.notes_list.addItems(filterad_notes)
+
+
+        ui.search_btn.setText("Скинути пошук")
+
+    elif ui.search_btn.text() == "Скинути пошук":
+        ui.tag_input.clear()
+        ui.notes_list.clear()
+        ui.notes_list.addItems(NOTES)
+
+        ui.search_btn.setText('шукати нотатки по тегу')
+
+ui.search_btn.clicked.connect(search_tag)
+
+
+
 
 
 
